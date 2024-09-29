@@ -97,3 +97,65 @@ export const applyFilter = (
     canvas.requestRenderAll();
   }
 };
+export const filtertype = [
+  {
+    value: "none",
+    label: "None",
+  },
+  {
+    value: "grayscale",
+    label: "Grayscale",
+  },
+  {
+    value: "sepia",
+    label: "Sepia",
+  },
+  {
+    value: "brightness",
+    label: "Brightness",
+  },
+  {
+    value: "contrast",
+    label: "Contrast",
+  },
+  {
+    value: "invert",
+    label: "Invert",
+  },
+  {
+    value: "blur",
+    label: "Blur",
+  },
+  {
+    value: "pixelate",
+    label: "Pixelate",
+  },
+  {
+    value: "noise",
+    label: "Noise",
+  },
+  {
+    value: "saturation",
+    label: "Saturation",
+  },
+  {
+    value: "hueRotation",
+    label: "Hue Rotation",
+  },
+  {
+    value: "blackWhite",
+    label: "Black & White",
+  },
+  {
+    value: "sharpen",
+    label: "Sharpen",
+  },
+  {
+    value: "emboss",
+    label: "Emboss",
+  },
+  {
+    value: "gamma",
+    label: "Gamma",
+  },
+];

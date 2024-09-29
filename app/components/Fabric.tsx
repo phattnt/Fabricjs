@@ -19,6 +19,7 @@ import {
   Pen,
   Check,
   ChevronsUpDown,
+  Download,
 } from "lucide-react";
 import {
   Command,
@@ -35,6 +36,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { applyFilter } from "./ImageFilter";
+import { filtertype } from "./ImageFilter";
 const FabricCanvas = () => {
   const canvasRef = useRef(null);
   const fabricCanvasRef = useRef<fabric.Canvas | null>(null);
@@ -43,68 +45,7 @@ const FabricCanvas = () => {
   );
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-  const filtertype = [
-    {
-      value: "none",
-      label: "None",
-    },
-    {
-      value: "grayscale",
-      label: "Grayscale",
-    },
-    {
-      value: "sepia",
-      label: "Sepia",
-    },
-    {
-      value: "brightness",
-      label: "Brightness",
-    },
-    {
-      value: "contrast",
-      label: "Contrast",
-    },
-    {
-      value: "invert",
-      label: "Invert",
-    },
-    {
-      value: "blur",
-      label: "Blur",
-    },
-    {
-      value: "pixelate",
-      label: "Pixelate",
-    },
-    {
-      value: "noise",
-      label: "Noise",
-    },
-    {
-      value: "saturation",
-      label: "Saturation",
-    },
-    {
-      value: "hueRotation",
-      label: "Hue Rotation",
-    },
-    {
-      value: "blackWhite",
-      label: "Black & White",
-    },
-    {
-      value: "sharpen",
-      label: "Sharpen",
-    },
-    {
-      value: "emboss",
-      label: "Emboss",
-    },
-    {
-      value: "gamma",
-      label: "Gamma",
-    },
-  ];
+
   useEffect(() => {
     if (canvasRef.current) {
       const canvasArea = new fabric.Canvas(canvasRef.current, {
@@ -242,7 +183,24 @@ const FabricCanvas = () => {
     };
     input.click();
   };
+  const handleExport = () => {
+    if (fabricCanvasRef.current) {
+      const canvas = fabricCanvasRef.current;
 
+      const dataURL = canvas.toDataURL({
+        format: 'jpeg',
+        quality: 1,
+        multiplier: 1,
+      });
+  
+      const link = document.createElement('a');
+      link.href = dataURL;
+      link.download = 'canvas_export.png'; 
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
   return (
     //tool
     <div className="relative">
@@ -313,6 +271,10 @@ const FabricCanvas = () => {
             </Command>
           </PopoverContent>
         </Popover>
+        {/* export */}
+        <Button variant="outline" size="icon" onClick={handleExport}>
+          <Download className="h-4 w-4" />
+        </Button>
       </div>
       {/* canvas */}
       <div
